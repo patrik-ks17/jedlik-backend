@@ -46,7 +46,7 @@ export default class nsideController implements Controller {
                 ...body,
             });
             const savedDocument = await createdDocument.save();
-            res.send(savedDocument);
+            res.status(201).send({_id: createdDocument.id});
         } catch (error) {
             res.status(400).send(error.message);
         }
