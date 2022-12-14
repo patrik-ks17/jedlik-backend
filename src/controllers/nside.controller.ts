@@ -9,10 +9,7 @@ export default class nsideController implements Controller {
 
     constructor() {
         this.router.get("/api/ingatlan", this.getAll);
-        this.router.get("/api/ingatlan/:id", this.getById);
         this.router.post("/api/ingatlan", this.create);
-        this.router.patch("/api/ingatlan/:id", this.modifyPATCH);
-        this.router.put("/api/ingatlan/:id", this.modifyPUT);
         this.router.delete("/api/ingatlan/:id", this.delete);
     }
 
@@ -25,20 +22,7 @@ export default class nsideController implements Controller {
         }
     };
 
-    private getById = async (req: Request, res: Response) => {
-        try {
-            const id = req.params.id;
-            const document = await this.nsideM.findById(id).populate("kategoria", "-_id");
-            if (document) {
-                res.send(document);
-            } else {
-                res.status(404).send(`Document with id ${id} not found!`);
-            }
-        } catch (error) {
-            res.status(400).send(error.message);
-        }
-    };
-
+    
     private create = async (req: Request, res: Response) => {
         try {
             const body = req.body;
@@ -46,54 +30,72 @@ export default class nsideController implements Controller {
                 ...body,
             });
             await createdDocument.save();
-            res.status(201).send({_id: createdDocument.id});
+            res.status(200).send({_id: createdDocument._id});
         } catch (error) {
             res.status(400).send(error.message);
         }
     };
 
-    private modifyPATCH = async (req: Request, res: Response) => {
-        try {
-            const id = req.params.id;
-            const body = req.body;
-            const updatedDoc = await this.nsideM.findByIdAndUpdate(id, body, { new: true, runValidators: true }).populate("kategoria", "-_id");
-            if (updatedDoc) {
-                res.send(updatedDoc);
-            } else {
-                res.status(404).send(`Document with id ${id} not found!`);
-            }
-        } catch (error) {
-            res.status(400).send(error.message);
-        }
-    };
-
-    private modifyPUT = async (req: Request, res: Response) => {
-        try {
-            const id = req.params.id;
-            const body = req.body;
-            const modificationResult = await this.nsideM.replaceOne({ _id: id }, body, { runValidators: true });
-            if (modificationResult.modifiedCount) {
-                const updatedDoc = await this.nsideM.findById(id).populate("kategoria", "-_id");
-                res.send(updatedDoc);
-            } else {
-                res.status(404).send(`Document with id ${id} not found!`);
-            }
-        } catch (error) {
-            res.status(400).send(error.message);
-        }
-    };
-
+    
     private delete = async (req: Request, res: Response) => {
         try {
             const id = req.params.id;
             const successResponse = await this.nsideM.findByIdAndDelete(id);
             if (successResponse) {
-                res.sendStatus(200);
+                res.sendStatus(204);
             } else {
-                res.status(404).send(`Document with id ${id} not found!`);
+                res.status(404).send(`Ingatlan nem létezik`);
             }
         } catch (error) {
             res.status(400).send(error.message);
         }
     };
+
+
+    // private getById = async (req: Request, res: Response) => {
+    //     try {
+    //         const id = req.params.id;
+    //         const document = await this.nsideM.findById(id).populate("kategoria", "-_id");
+    //         if (document) {
+    //             res.send(document);
+    //         } else {
+    //             res.status(404).send(`Document with id ${id} not found!`);
+    //         }
+    //     } catch (error) {
+    //         res.status(400).send(error.message);
+    //     }
+    // };
+
+
+    // private modifyPATCH = async (req: Request, res: Response) => {
+    //     try {
+    //         const id = req.params.id;
+    //         const body = req.body;
+    //         const updatedDoc = await this.nsideM.findByIdAndUpdate(id, body, { new: true, runValidators: true }).populate("kategoria", "-_id");
+    //         if (updatedDoc) {
+    //             res.send(updatedDoc);
+    //         } else {
+    //             res.status(404).send(`Document with id ${id} not found!`);
+    //         }
+    //     } catch (error) {
+    //         res.status(400).send(error.message);
+    //     }
+    // };
+
+    // private modifyPUT = async (req: Request, res: Response) => {
+    //     try {
+    //         const id = req.params.id;
+    //         const body = req.body;
+    //         const modificationResult = await this.nsideM.replaceOne({ _id: id }, body, { runValidators: true });
+    //         if (modificationResult.modifiedCount) {
+    //             const updatedDoc = await this.nsideM.findById(id).populate("kategoria", "-_id");
+    //             res.send(updatedDoc);
+    //         } else {
+    //             res.status(404).send(`Document with id ${id} not found!`);
+    //         }
+    //     } catch (error) {
+    //         res.status(400).send(error.message);
+    //     }
+    // };
+
 }

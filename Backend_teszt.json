@@ -1,0 +1,56 @@
+{
+	"client": "Thunder Client",
+	"collectionName": "Backend teszt",
+	"dateExported": "2022-12-14T09:03:38.499Z",
+	"version": "1.1",
+	"folders": [],
+	"requests": [
+		{
+			"_id": "fdf61724-c456-4f88-a1f5-8f55d22b6b30",
+			"colId": "175dded4-bc26-402b-b555-8596e58978d1",
+			"containerId": "",
+			"name": "Get all",
+			"url": "http://localhost:5000/api/ingatlan",
+			"method": "GET",
+			"sortNum": 10000,
+			"created": "2022-12-12T12:22:51.342Z",
+			"modified": "2022-12-12T12:22:51.342Z",
+			"headers": [],
+			"params": [],
+			"tests": []
+		},
+		{
+			"_id": "038330cc-cc32-4a29-b005-b080c97b1bb2",
+			"colId": "175dded4-bc26-402b-b555-8596e58978d1",
+			"containerId": "",
+			"name": "Create",
+			"url": "http://localhost:5000/api/ingatlan/",
+			"method": "POST",
+			"sortNum": 30000,
+			"created": "2022-12-12T12:22:51.345Z",
+			"modified": "2022-12-14T08:38:32.277Z",
+			"headers": [],
+			"params": [],
+			"body": {
+				"type": "json",
+				"raw": "{\n    \"_id\": 123,\n    \"kategoria\": 2,\n    \"leiras\": \"Belvárosi környezetben\",\n    \"hirdetesDatuma\": \"2022-02-24\",\n    \"tehermentes\": true,\n    \"ar\": 28990000,\n    \"kepUrl\": \"\"\n  }",
+				"form": []
+			},
+			"tests": []
+		},
+		{
+			"_id": "f8b74f79-39d6-4843-8650-f7943c136175",
+			"colId": "175dded4-bc26-402b-b555-8596e58978d1",
+			"containerId": "",
+			"name": "Delete by id",
+			"url": "http://localhost:5000/api/ingatlan/123",
+			"method": "DELETE",
+			"sortNum": 50000,
+			"created": "2022-12-12T12:22:51.347Z",
+			"modified": "2022-12-14T08:57:09.609Z",
+			"headers": [],
+			"params": [],
+			"tests": []
+		}
+	]
+}

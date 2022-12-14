@@ -21,7 +21,7 @@ const nsideSchema = new Schema(
         },
         tehermentes: {
             type: Boolean,
-            required: true,
+            required: [true,"Hiányos adatok"]
         },
         ar: {
             type: Number,
